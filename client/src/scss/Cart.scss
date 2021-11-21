@@ -1,0 +1,279 @@
+.Cart{
+    width: 100%;
+    padding: 25px;
+    padding-top: 15px;
+
+    &>div:not(:last-of-type){
+        width: 100%;
+        height: 70vh;
+    }
+
+    .display{
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        background: white;
+        overflow: auto;
+        padding: 10px;
+        border: solid rgba(0, 0, 0, 0.164) 1.5px;
+
+        .item{
+            width: 100%;
+            display: flex;
+            padding: 5px;
+            gap: 10px;
+            align-items: center;
+
+            img{
+                height: 50px;
+                width: 50px;
+                object-fit: contain;
+            }
+
+            h2{
+                font-size: 1.4rem;
+            }
+
+
+            .details{
+                margin-left: auto;
+                display: flex;
+                gap: 6px;
+                align-items: center;
+
+                p{
+                    font-size: 1.8rem;
+                    padding: 0px 5px;
+                }
+
+                button{
+                    padding: 8px 11px;
+                    border-radius: 50%;
+                    font-size: 0.8rem;
+
+                    &:not(:last-of-type){
+                        padding: 8px 10px;
+                    }
+                }
+            }
+        }
+
+        
+    }
+
+    .checkout{
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        padding-right: 10px;
+        overflow: auto;
+
+        &>h2{
+            color: rgb(78, 78, 78);
+            font-size: 1.4rem;
+            cursor: default;
+            margin: 10px 0px;
+        }
+
+        .address-item{
+            border: solid rgba(0, 0, 0, 0.329) 1.5px;
+            border-radius: 8px;
+            padding: 25px;
+            cursor: pointer;
+            background: white;
+
+            h3{
+                color: rgb(107, 107, 107); 
+                font-size: 1.0rem;
+            }
+
+            p{
+                font-size: 1.3rem;
+                padding: 2px 0px;
+            }
+        }
+
+        .payment-item{
+            border: solid rgba(0, 0, 0, 0.329) 1.5px;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            background: white;
+
+            span{
+                padding: 8px;
+                border: solid rgba(0, 0, 0, 0.61) 1.6px;
+                border-radius: 10px;
+            }
+
+            h2{
+                font-size: 1.2rem;
+                font-weight: 400;
+            }
+        }
+
+        .-active{
+            border: solid rgb(1, 117, 5) 1.5px;
+
+            h3{
+                color: rgb(1, 117, 5);
+                font-size: 1.1rem;
+            }
+
+            p{
+                font-size: 1.4rem;
+                color: rgb(1, 117, 5);
+            }
+
+            h2{
+                color: rgb(1, 117, 5);
+
+                span{
+                    color: rgb(1, 117, 5);
+                }
+            }
+
+            &>span{
+                color: rgb(1, 117, 5);
+                border: solid rgb(1, 117, 5) 1.6px;
+            }
+
+            div{
+                color: rgb(1, 117, 5);
+            }
+        }
+
+    }
+
+    .final-thanks{
+        width: 100%;
+        height: 400px;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        img{
+            width: 0px;
+            height: 0px;
+            transition: all cubic-bezier(0,.9,.89,1.64) 0.4s;
+            object-fit: contain;
+        }
+
+        .enlarge{
+            width: 150px;
+            height: 150px;
+        }
+
+        h1{
+            font-size: 2rem;
+        }
+    }
+
+    .control{
+        width: 100%;
+        display: flex;
+        cursor: default;
+        margin-top: 15px;
+        gap: 15px;
+
+        .coupon{
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            justify-content: center;
+            border: dashed rgba(0, 0, 0, 0.644) 2px;
+            padding: 15px;
+
+            h2{
+                font-size: 1rem;
+                margin-left: 2px;
+                color: rgb(83, 83, 83);
+            }
+
+            input{
+                outline: none;
+                border: none;
+                width: 100%;
+                padding: 6px 10px;
+                font-size: 1.1rem;
+                border: solid rgb(209, 209, 209) 1.5px;
+                border-radius: 6px;
+            }
+
+            button{
+                padding: 6px 18px;
+                margin-left: 2px;
+                font-size: 0.8rem;
+            }
+
+            div{
+                width: 100%;
+                padding: 10px;
+                border: solid rgba(0, 0, 0, 0.178) 1.5px;
+                color: green;
+                background: white;
+                border-radius: 7px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                i{
+                    color: black;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .total{
+            width: calc(100% - 200px);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            border: solid rgba(0, 0, 0, 0.164) 1.5px;
+            background: white;
+            gap: 4px;
+            align-items: flex-end;
+
+            p{
+                width: 250px;
+                display: flex;
+                align-items: center;
+                font-size: 1.2rem;
+                justify-content: space-between;
+
+                &:last-of-type{
+                    color: green;
+                    font-weight: 800;
+                    font-size: 1.5rem;
+                }
+            }
+
+            hr{
+                background: rgba(0, 0, 0, 0.226);
+                margin: 10px 0px;
+                width: 100%;
+            }
+
+            span{
+                width: 150px;
+                font-size: 1.2rem;
+                color: black;
+                font-weight: 600;
+            }
+
+            div{
+                width: 100%;
+                display: flex;
+                margin-top: 5px;
+                justify-content: space-between;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,94 @@
+.Auth{
+    padding: 25px;
+    display: flex;
+    width: 100%;
+    height: 75vh;
+    gap: 15px;
+
+    &>img{
+        width: 45%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 20px;
+    }
+
+    .login{
+        width: 55%;
+        height: 100%;
+        border-radius: 20px;
+        background: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        position: relative;
+
+        h2{
+            font-size: 1.4rem;
+        }
+
+        figure{
+            width: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            height: 150px;
+            position: relative;
+
+            img{
+                height: 100%;
+                width: 100%;
+            }
+
+            div{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.76);
+                color: white;
+                font-size: 1.5rem;
+                opacity: 0;
+                cursor: default;
+                transition: all ease-in-out 0.2s;
+            }
+
+            &:hover{
+                div{
+                    opacity: 1;
+                }
+            }
+        }
+
+        input{
+            border: solid rgb(209, 209, 209) 1.5px;
+            border-radius: 10px;
+            outline: none;
+            width: 80%;
+            font-size: 1.3rem;
+            padding: 10px 15px;
+        }
+
+        p{
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            cursor: default;
+            color: grey;
+            transform: translateX(-50%);
+            font-size: 1.1rem;
+
+            span{
+                cursor: pointer;
+                font-size: 1.1rem;
+                color: rgb(223, 140, 15);
+                font-weight: 800;
+            }
+        }
+    }
+
+}

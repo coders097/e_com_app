@@ -1,0 +1,53 @@
+.SubscribeBox{
+    width: 50vw;
+    height: 360px;
+    background: rgb(255, 255, 255);
+    padding: 15px;
+    display: flex;
+    border-radius: 10px;
+    gap: 20px;
+
+    img{
+        width: 40%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .details{
+        width: 60%;
+        height: 100%;
+        display: flex;
+        gap: 15px;
+        flex-direction: column;
+
+        h2{
+            font-size: 1.5rem;
+            color: grey;
+
+            span{
+                color: black;
+                font-size: 1.5rem;
+            }
+        }
+
+        input,select{
+            outline: none;
+            border: none;
+            // font-style: italic;
+            padding: 12px 18px;
+            border-radius: 4px;
+            font-size: 1.2rem;
+            background: rgb(238, 238, 238);
+        }
+
+        button{
+            margin-top: auto;
+            padding: 15px 30px;
+            width: 100%;
+            background: rgb(26, 24, 24);
+            color: white;
+            margin-bottom: 8px;
+        }
+    }
+}

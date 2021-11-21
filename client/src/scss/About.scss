@@ -1,0 +1,90 @@
+.Customer-review{
+    width: 100%;
+    padding: 30px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+
+    .user{
+        display: flex;
+        align-items: center;
+        width: 250px;
+        gap: 12px;
+
+        img{
+            border-radius: 15px;
+            height: 100px;
+            object-fit: contain;
+            border: solid rgb(236, 179, 33) 5px;
+        }
+
+        div{
+            padding: 6px;
+            h2{
+                font-size: 1.6rem;
+                margin-bottom: 2px;
+            }
+            p{
+                font-size: 1.3rem;
+                color: grey;
+            }
+            p:last-of-type{
+                margin-top: 4px;
+                letter-spacing: 5px;
+                color: goldenrod;
+                
+            }
+        }
+    }
+
+    .message{
+        width: calc(100% - 400px);
+        padding: 15px;
+        
+        p:first-of-type{
+            color: goldenrod;
+            text-align: left;
+            font-size: 2rem;
+        }
+
+        p{
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        p:last-of-type{
+            color: goldenrod;
+            font-size: 2rem;
+            text-align: right;
+        }
+    }
+}
+.About-us{
+    padding: 20px;
+    padding-top: 5px;
+
+    h2{
+        font-size: 1.8rem;
+        padding: 10px;
+        padding-bottom: 0px;
+    }
+
+    p:first-of-type{
+        font-size: 1.3rem;
+        padding: 10px;
+        color: rgb(78, 78, 78);
+    }
+
+    hr{
+        opacity: 0.4;
+    }
+
+    p:last-of-type{
+        padding: 10px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: rgb(99, 99, 99);
+    }
+}

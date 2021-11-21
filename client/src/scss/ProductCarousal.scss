@@ -1,0 +1,91 @@
+.__img_carousel{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+}
+.__img_carousel .__display{
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+.__img_carousel .__display div{
+    width: 100%;
+    transition: all cubic-bezier(.44,.3,.44,.94) 0.3s;
+    height: 100%;
+    position: absolute;
+}
+.__img_carousel .__display div img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.__img_card_1{
+    left: 0;
+    opacity: 0;
+}
+.__img_card_1_active{
+    left: -100%;
+    opacity: 0.2;
+}
+.__img_card_1_active_right{
+    left: 100%;
+    opacity: 0.2;
+}
+.__img_card_2{
+    left: 100%;
+}
+.__img_card_2_active{
+    left: 0;
+}
+.__img_card_2_right{
+    left: -100%;
+}
+.__img_card_2_active_right{
+    left: 0;
+}
+.__controls{
+    width: 100%;
+    overflow: hidden;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.__controls p{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 70px;
+    display: flex;
+    transition: all ease-in-out 0.2s;
+    align-items: center;
+    opacity: 0;
+    justify-content: center;
+
+    i{
+        font-size: 3rem;
+        color: white;
+    }
+
+    &:hover{
+        opacity: 1;
+    }
+    &:first-of-type{
+        left: 0;
+        background: linear-gradient(to right,rgba(0, 0, 0, 0.808),rgba(90, 71, 71, 0));
+    }
+
+    &:last-of-type{
+        right: 0;
+        background: linear-gradient(to left,rgba(0, 0, 0, 0.808),rgba(90, 71, 71, 0));
+    }
+}
