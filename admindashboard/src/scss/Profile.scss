@@ -1,0 +1,63 @@
+.ProfileView{
+    width: 520px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    border: solid rgba(0, 0, 0, 0.582) 1.3s;
+    transform: translate(-50%,-50%);
+    display: flex;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.13) 0px 0px 15px;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.877);
+    backdrop-filter: blur(6px);
+
+    .header{
+        width: 100%;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h2{
+            font-size: 1.6rem;
+        }
+
+        p{
+            i{
+            font-size: 1.6rem;
+            }
+        }
+    }
+
+    .body{
+        padding: 15px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-direction: column;
+
+        img{
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        input{
+            padding: 10px 15px;
+        }
+
+        div{
+            width: 100%;
+            display: flex;
+            gap: 10px;
+        }
+    }
+
+    @media screen and (max-width:540px) {
+        &{
+            width: 95%;
+        }
+    }
+}

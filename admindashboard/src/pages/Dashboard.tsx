@@ -8,6 +8,7 @@ import Orders from '../components/Orders';
 import ItemView from '../components/ItemView';
 import { AuthState } from '../state/authState';
 import { ItemState } from '../state/itemsState';
+import Profile from '../components/Profile';
 
 const Dashboard = ({
     authState,authDispatch,items,setItems
@@ -26,6 +27,7 @@ const Dashboard = ({
     let [showAside,setShowAside]=useState(false);
     let [content,setContent]=useState(1);
     let [selectedItem,setSelectedItem]=useState<ItemState | null>(null);
+    let [editProfileView,setEditProfileView]=useState(false);
 
     useEffect(()=>{
         if(authState.loggedIn)
@@ -48,7 +50,7 @@ const Dashboard = ({
 
     return (
         <>
-            <Navbar setShowAside={setShowAside} authDispatch={authDispatch} authState={authState}/>
+            <Navbar setShowAside={setShowAside} authDispatch={authDispatch} authState={authState} setEditProfileView={setEditProfileView}/>
             <aside style={showAside?{}:{transform:"translateX(-100%)",visibility:"hidden",opacity:0}}>
                 <div className="logo">
                     <img alt="logo" src={logo} />
@@ -76,6 +78,7 @@ const Dashboard = ({
             {content===2?<Orders/>:null}
             {content===3?<ItemView items={items} setItems={setItems} item={selectedItem} setContent={setContent} authState={authState}/>:null}
             {/* <ItemView/> */}
+            {editProfileView?<Profile authState={authState} authDispatch={authDispatch} setEditProfileView={setEditProfileView}/>:null}
         </>
     );
 };

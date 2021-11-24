@@ -153,8 +153,8 @@ router.post("/signin", async (req:express.Request, res:express.Response) => {
 router.post("/editProfile", upload.any(), async (req:express.Request, res:express.Response) => {
     jwtVerify(req, res, () => {
       console.log("Verified!");
-      let { id, name, email, password ,phone, mode } = req.body;
-      if (!email || !password || !mode) {
+      let { id, name, email, password ,phone, mode,oldPassword } = req.body;
+      if (!mode || !id || !oldPassword) {
         res.status(401).json({ success: false, error: "Invalid Details" });
         return;
       }
@@ -165,6 +165,16 @@ router.post("/editProfile", upload.any(), async (req:express.Request, res:expres
       (mode==='admin'?Seller:Client).findById(id)
         .then(async (user:any) => {
           user=(mode==='admin')?user as typeof Seller:user as typeof Client;
+
+          // Security check
+          let origPass=user.password;
+          const comparePassword = bcrypt.compareSync(oldPassword,origPass);
+          if (comparePassword === true) {
+          }else{
+            res.status(401).json({ success: false, error: "Invalid Details" });
+            return;
+          }
+
           let oldPic = user.pic;
           let newPic = oldPic;
           if ((req.files as Express.Multer.File[]).length != 0) {
@@ -197,6 +207,7 @@ router.post("/editProfile", upload.any(), async (req:express.Request, res:expres
                   _id: user._id,
                   name: user.name,
                   email: user.email,
+                  phone:user.phone,
                   pic: user.pic,
                 },
               });
@@ -227,13 +238,13 @@ router.post("/editProfile", upload.any(), async (req:express.Request, res:expres
     });
   });
   
-// @type  POST
+// @type  DELETE
 // @route /auth/deleteProfile
 // @desc  for deleting seller's or client's profile
 // @access PRIVATE
-router.post("/deleteProfile", jwtVerify, async (req, res) => {
-    let { id , mode } = req.body;
-    if(!mode){
+router.delete("/deleteProfile", jwtVerify, async (req, res) => {
+    let { id , mode, password } = req.body;
+    if(!mode || !id || !password){
         res.status(401).json({ success: false, error: "Invalid Details" });
         return;
     }
@@ -241,6 +252,25 @@ router.post("/deleteProfile", jwtVerify, async (req, res) => {
         res.status(401).json({ success: false, error: "Invalid Details" });
         return;
     }
+
+    try{
+      let user=await (mode==='admin'?Seller:Client).findById(id);
+      if(!user) throw Error("No Such User");
+      let origPass=user.password;
+      const comparePassword = bcrypt.compareSync(password,origPass);
+      if (comparePassword === true) {
+      }else{
+        res.status(401).json({ success: false, error: "Invalid Details" });
+        return;
+      }
+
+    }catch(e){
+      res.status(401).json({ success: false, error: "Invalid Details" });
+      return;
+    }
+
+
+
     (mode==='admin'?Seller:Client).findByIdAndDelete(id)
         .then(async (user:any) => {
         user=(mode==='admin'?user as typeof Seller:user as typeof Client);
@@ -253,10 +283,10 @@ router.post("/deleteProfile", jwtVerify, async (req, res) => {
         } catch (E) {}
         })
         .catch((err) => {
-        res.status(401).json({
-            success: false,
-            error: "SERVER PROBLEM!",
-        });
+          res.status(401).json({
+              success: false,
+              error: "SERVER PROBLEM!",
+          });
         });
 });
 

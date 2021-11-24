@@ -161,8 +161,8 @@ router.post("/signin", (req, res) => __awaiter(void 0, void 0, void 0, function*
 router.post("/editProfile", upload.any(), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, jwtAuthentication_1.default)(req, res, () => {
         console.log("Verified!");
-        let { id, name, email, password, phone, mode } = req.body;
-        if (!email || !password || !mode) {
+        let { id, name, email, password, phone, mode, oldPassword } = req.body;
+        if (!mode || !id || !oldPassword) {
             res.status(401).json({ success: false, error: "Invalid Details" });
             return;
         }
@@ -173,6 +173,15 @@ router.post("/editProfile", upload.any(), (req, res) => __awaiter(void 0, void 0
         (mode === 'admin' ? Seller_1.default : Client_1.default).findById(id)
             .then((user) => __awaiter(void 0, void 0, void 0, function* () {
             user = (mode === 'admin') ? user : user;
+            // Security check
+            let origPass = user.password;
+            const comparePassword = bcryptjs_1.default.compareSync(oldPassword, origPass);
+            if (comparePassword === true) {
+            }
+            else {
+                res.status(401).json({ success: false, error: "Invalid Details" });
+                return;
+            }
             let oldPic = user.pic;
             let newPic = oldPic;
             if (req.files.length != 0) {
@@ -202,6 +211,7 @@ router.post("/editProfile", upload.any(), (req, res) => __awaiter(void 0, void 0
                         _id: user._id,
                         name: user.name,
                         email: user.email,
+                        phone: user.phone,
                         pic: user.pic,
                     },
                 });
@@ -232,17 +242,34 @@ router.post("/editProfile", upload.any(), (req, res) => __awaiter(void 0, void 0
         });
     });
 }));
-// @type  POST
+// @type  DELETE
 // @route /auth/deleteProfile
 // @desc  for deleting seller's or client's profile
 // @access PRIVATE
-router.post("/deleteProfile", jwtAuthentication_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { id, mode } = req.body;
-    if (!mode) {
+router.delete("/deleteProfile", jwtAuthentication_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { id, mode, password } = req.body;
+    if (!mode || !id || !password) {
         res.status(401).json({ success: false, error: "Invalid Details" });
         return;
     }
     if (!(mode === 'admin' || mode === 'client')) {
+        res.status(401).json({ success: false, error: "Invalid Details" });
+        return;
+    }
+    try {
+        let user = yield (mode === 'admin' ? Seller_1.default : Client_1.default).findById(id);
+        if (!user)
+            throw Error("No Such User");
+        let origPass = user.password;
+        const comparePassword = bcryptjs_1.default.compareSync(password, origPass);
+        if (comparePassword === true) {
+        }
+        else {
+            res.status(401).json({ success: false, error: "Invalid Details" });
+            return;
+        }
+    }
+    catch (e) {
         res.status(401).json({ success: false, error: "Invalid Details" });
         return;
     }

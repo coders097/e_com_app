@@ -22,6 +22,7 @@ const reducer=(state:AuthState,action:{
             };
         
         case "UPDATE":
+            localStorage.setItem('account-login',JSON.stringify(action.payload));
             return action.payload;
             
         default:

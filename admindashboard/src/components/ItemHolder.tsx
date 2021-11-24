@@ -100,6 +100,7 @@ const ItemHolder = ({authState,items,setItems,setSelectedItem,setContent}:{
                 <p onClick={()=>setTypeView(true)} className={typeView?"--active":""}><i className="fas fa-th-list"></i>&nbsp; List</p>
             </div>
             <div className="display" style={typeView?{justifyContent: "space-evenly"}:{}}>
+                {localItems.length===0?<h2>No items Available</h2>:null}
                 {localItems.map((item,i)=>{
                     return <div key={i} className={typeView?"Item-vertical":"Item-horizontal"} >
                         <img src={`http://localhost:3001/admin/itemPic/${item.pics[0]}/${authState.token}`} alt="product"/>

@@ -76,11 +76,11 @@ const Auth = ({
                 // name, email, password,phone
                 if(inputPic.current && inputPic.current.files && inputPic.current.files.length>0){
                     formData.append("pic",inputPic.current.files[0]);
-                    formData.append("name",nameInput.current.value);
-                    formData.append("email",emailInput.current.value);
-                    formData.append("password",passwordInput.current.value);
-                    formData.append("phone",phoneInput.current.value);
                 }
+                formData.append("name",nameInput.current.value);
+                formData.append("email",emailInput.current.value);
+                formData.append("password",passwordInput.current.value);
+                formData.append("phone",phoneInput.current.value);
                 fetch("http://localhost:3001/auth/signup",{
                     method:"POST",
                     body:formData
