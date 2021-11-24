@@ -8,11 +8,22 @@
         width: 100%;
         display: flex;
         margin-bottom: 10px;
-        justify-content: flex-end;
         gap: 5px;
         cursor: pointer;
         user-select: none;
         align-items: center;
+
+        input{
+            width: 400px;
+        }
+
+        select{
+            width: fit-content;
+        }
+
+        button{
+            border-radius: 8px;
+        }
 
         .--active{
             background-color: rgba(48, 43, 43, 0.986);
@@ -53,6 +64,12 @@
                 h2{
                     font-size: 1.8rem;
                     margin-bottom: 3px;
+
+                    &:hover{
+                        color: goldenrod;
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
                 }
                 p{
                     font-size: 1.1rem;
@@ -89,6 +106,12 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+
+                    &:hover{
+                        color: goldenrod;
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
                 }
                 p{
                     font-size: 1.1rem;
@@ -113,6 +136,11 @@
     }
 
     @media screen and (max-width:850px) {
+        .menu{
+            input,select,button{
+                display: none;
+            }
+        }
         .display{
             .Item-vertical{
                 width: 100%;

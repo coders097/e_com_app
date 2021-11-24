@@ -25,6 +25,9 @@ const ProductSchema = new mongoose_1.default.Schema({
         type: Number,
         required: true
     },
+    desc: {
+        type: String
+    },
     group: {
         type: String,
         enum: ['fashion', 'tech', 'household'],

@@ -9,7 +9,7 @@ import Order from '../models/Order';
 import E from '../utils/errors';
 
 let addProduct=async (req:express.Request,res:express.Response)=>{
-    let {title,qty,sellerId,price,group,subgroup}=req.body;
+    let {title,qty,sellerId,price,group,subgroup,desc}=req.body;
     // pics:[]
     let pics:string[]=[];
     (req.files as Express.Multer.File[]).forEach((file,i)=>{
@@ -34,6 +34,7 @@ let addProduct=async (req:express.Request,res:express.Response)=>{
             price:price,
             group:group,
             subgroup:subgroup,
+            desc:(desc)?desc:""
         });
         seller.products.push(product._id);
         seller.save().then(()=>{
@@ -47,7 +48,9 @@ let addProduct=async (req:express.Request,res:express.Response)=>{
                     price:price,
                     group:group,
                     subgroup:subgroup,
-                    _id:product._id.toString()
+                    desc:(desc)?desc:"",
+                    _id:product._id.toString(),
+                    creationDate:product.creationDate
                 }
             });
         }).catch((err:Error)=>{
@@ -59,7 +62,7 @@ let addProduct=async (req:express.Request,res:express.Response)=>{
 }
 
 let updateProduct=async (req:express.Request,res:express.Response)=>{
-    let { price,productId,qty,_id}=req.body;
+    let { price,productId,qty,_id,desc,title,group,subgroup}=req.body;
     if(!productId){
         E.notFoundError(res);
         return;
@@ -85,6 +88,10 @@ let updateProduct=async (req:express.Request,res:express.Response)=>{
         }
         if(qty) product.qty=qty;
         if(price) product.price=price;
+        if(desc) product.desc=desc;
+        if(title) product.title=title;
+        if(group) product.group=group;
+        if(subgroup) product.subgroup=subgroup;
         
         product.save().then(()=>{
             res.status(200).json({
@@ -100,7 +107,7 @@ let updateProduct=async (req:express.Request,res:express.Response)=>{
 
 let deleteProduct=async (req:express.Request,res:express.Response)=>{
     let { productId,_id}=req.body;
-    if(!productId){
+    if(!productId){ 
         E.notFoundError(res);
         return;
     }

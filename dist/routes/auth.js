@@ -265,4 +265,18 @@ router.post("/deleteProfile", jwtAuthentication_1.default, (req, res) => __await
         });
     });
 }));
+// @type  GET
+// @route /auth/accountPic
+// @desc  for getting user's profile picture
+// @access PUBLIC
+router.get("/accountPic/:pic", (req, res) => {
+    let pic = req.params.pic;
+    try {
+        let stream = fs_1.default.createReadStream(path_1.default.join(__dirname, "../../storage/userpics/", pic));
+        stream.pipe(res);
+    }
+    catch (e) {
+        res.status(404).send();
+    }
+});
 exports.default = router;

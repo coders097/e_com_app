@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import '../scss/Navbar.scss';
 import userpic from '../assets/avatar.jpg';
+import { AuthState } from '../state/authState';
 
-const Navbar = ({setShowAside}:{
-    setShowAside:React.Dispatch<React.SetStateAction<boolean>>
+const Navbar = ({setShowAside,authDispatch,authState}:{
+    setShowAside:React.Dispatch<React.SetStateAction<boolean>>,
+    authDispatch:React.Dispatch<{
+        type: String;
+        payload: AuthState;
+    }>,
+    authState:AuthState
 }) => {
 
     let [contextMenu,showContextMenu]=useState(false);
@@ -16,10 +22,13 @@ const Navbar = ({setShowAside}:{
                 <div></div>
             </div>
             <h2>Dashboard</h2>
-            <img src={userpic} alt="userpic" onClick={()=>showContextMenu(!contextMenu)}/> 
+            <img src={`http://localhost:3001/auth/accountPic/${authState.pic}`} alt="userpic" onClick={()=>showContextMenu(!contextMenu)}/> 
             {contextMenu?<div className="context-menu">
                 <p><i className="fas fa-user-circle"></i>&nbsp; Profile</p>
-                <p><i className="fas fa-sign-out-alt"></i>&nbsp; Logout</p>
+                <p onClick={()=>authDispatch({
+                    type:"LOGOUT",
+                    payload:{} as AuthState
+                })}><i className="fas fa-sign-out-alt"></i>&nbsp; Logout</p>
             </div>:null}
         </nav>
     );

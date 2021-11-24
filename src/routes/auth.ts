@@ -27,7 +27,7 @@ router.post("/signup", upload.any(), async (req:express.Request, res:express.Res
     const { name, email, password,phone, mode } = req.body;
     if (!email || !password || !name || !mode) {
       res.status(401).json({ success: false, error: "Invalid Details" });
-      return;
+      return; 
     }
     if(!(mode==='admin' || mode==='client')){
         res.status(401).json({ success: false, error: "Invalid Details" });
@@ -258,6 +258,21 @@ router.post("/deleteProfile", jwtVerify, async (req, res) => {
             error: "SERVER PROBLEM!",
         });
         });
+});
+
+// @type  GET
+// @route /auth/accountPic
+// @desc  for getting user's profile picture
+// @access PUBLIC
+
+router.get("/accountPic/:pic", (req, res) => {
+   let pic=req.params.pic;
+   try{
+     let stream=fs.createReadStream(path.join(__dirname,"../../storage/userpics/",pic));
+     stream.pipe(res);
+   }catch(e){
+    res.status(404).send();
+   }
 });
 
 export default router;

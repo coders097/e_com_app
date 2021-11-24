@@ -21,6 +21,9 @@ const ProductSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+    desc:{
+        type:String
+    },
     group:{
         type: String,
         enum : ['fashion','tech','household'],

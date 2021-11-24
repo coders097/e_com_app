@@ -33,6 +33,6 @@ db.once('open', () => {
     console.log("We are connected!");
 });
 let PORT = process.env.PORT ? parseInt(process.env.PORT) : 3001;
-app.listen(PORT, "192.168.0.101", () => {
-    console.log("http://192.168.0.101:3001");
+app.listen(PORT, "localhost", () => {
+    console.log("http://localhost:3001");
 });

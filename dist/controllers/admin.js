@@ -19,7 +19,7 @@ const Seller_1 = __importDefault(require("../models/Seller"));
 const Order_1 = __importDefault(require("../models/Order"));
 const errors_1 = __importDefault(require("../utils/errors"));
 let addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { title, qty, sellerId, price, group, subgroup } = req.body;
+    let { title, qty, sellerId, price, group, subgroup, desc } = req.body;
     // pics:[]
     let pics = [];
     req.files.forEach((file, i) => {
@@ -41,6 +41,7 @@ let addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             price: price,
             group: group,
             subgroup: subgroup,
+            desc: (desc) ? desc : ""
         });
         seller.products.push(product._id);
         seller.save().then(() => {
@@ -54,7 +55,9 @@ let addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                     price: price,
                     group: group,
                     subgroup: subgroup,
-                    _id: product._id.toString()
+                    desc: (desc) ? desc : "",
+                    _id: product._id.toString(),
+                    creationDate: product.creationDate
                 }
             });
         }).catch((err) => {
@@ -66,7 +69,7 @@ let addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 let updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let { price, productId, qty, _id } = req.body;
+    let { price, productId, qty, _id, desc, title, group, subgroup } = req.body;
     if (!productId) {
         errors_1.default.notFoundError(res);
         return;
@@ -95,6 +98,14 @@ let updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             product.qty = qty;
         if (price)
             product.price = price;
+        if (desc)
+            product.desc = desc;
+        if (title)
+            product.title = title;
+        if (group)
+            product.group = group;
+        if (subgroup)
+            product.subgroup = subgroup;
         product.save().then(() => {
             res.status(200).json({
                 success: true

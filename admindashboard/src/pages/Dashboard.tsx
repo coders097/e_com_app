@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../scss/Dashboard.scss';
 import logo from '../assets/logo.png';
@@ -6,13 +6,49 @@ import ItemHolder from '../components/ItemHolder';
 import ItemAdder from '../components/ItemAdder';
 import Orders from '../components/Orders';
 import ItemView from '../components/ItemView';
+import { AuthState } from '../state/authState';
+import { ItemState } from '../state/itemsState';
 
-const Dashboard = () => {
+const Dashboard = ({
+    authState,authDispatch,items,setItems
+}:{
+    authState:AuthState,
+    authDispatch:React.Dispatch<{
+        type: String;
+        payload: AuthState;
+    }>,
+    items:ItemState[],
+    setItems:React.Dispatch<{
+        type: String;
+        payload: ItemState[];
+    }>
+}) => {
     let [showAside,setShowAside]=useState(false);
     let [content,setContent]=useState(1);
+    let [selectedItem,setSelectedItem]=useState<ItemState | null>(null);
+
+    useEffect(()=>{
+        if(authState.loggedIn)
+            fetch('http://localhost:3001/admin/fetchProducts',{
+                method:"POST",
+                headers:{
+                    "Authorization":`Bearer ${authState.token}`,
+                },
+            }).then(res=>res.json())
+            .then(data=>{
+                if(data.success){
+                    setItems({
+                        type:"LOAD",
+                        payload:data.data
+                    });
+                    
+                }else alert(data.error);
+            }).catch(err=>alert(err));
+    },[authState]);
+
     return (
         <>
-            <Navbar setShowAside={setShowAside}/>
+            <Navbar setShowAside={setShowAside} authDispatch={authDispatch} authState={authState}/>
             <aside style={showAside?{}:{transform:"translateX(-100%)",visibility:"hidden",opacity:0}}>
                 <div className="logo">
                     <img alt="logo" src={logo} />
@@ -35,9 +71,10 @@ const Dashboard = () => {
                     <p><i className="fas fa-box-open"></i>&nbsp; My Orders</p>
                 </div>
             </aside>
-            {content===0?<ItemAdder/>:null}
-            {content===1?<ItemHolder/>:null}
+            {content===0?<ItemAdder authState={authState} items={items} setItems={setItems}/>:null}
+            {content===1?<ItemHolder setContent={setContent} authState={authState} items={items} setItems={setItems} setSelectedItem={setSelectedItem}/>:null}
             {content===2?<Orders/>:null}
+            {content===3?<ItemView items={items} setItems={setItems} item={selectedItem} setContent={setContent} authState={authState}/>:null}
             {/* <ItemView/> */}
         </>
     );

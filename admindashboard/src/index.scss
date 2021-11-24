@@ -13,6 +13,14 @@ body{
   background: #f7f7f7;
 }
 
+img{
+  user-select: none;
+}
+
+h1,h2,p{
+  user-select: none;
+}
+
 .btn{
   padding: 10px 18px;
   outline: none;
@@ -35,6 +43,11 @@ body{
 }
 .btn-black{
   background: rgb(37, 36, 36);
+  color: white;
+}
+
+.btn-green{
+  background: rgb(211, 155, 0);
   color: white;
 }
 

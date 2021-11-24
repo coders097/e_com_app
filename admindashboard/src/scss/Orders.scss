@@ -1,0 +1,114 @@
+.Orders{
+    width: 100%;
+    height: calc(100vh - 75px);
+    padding: 20px;
+    overflow: auto;
+
+    h1{
+        font-size: 2.4rem;
+        font-size: 600;
+        color: rgb(87, 87, 87);
+    }
+
+    ul{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        list-style: none;
+
+        select{
+            background: #f7f7f7;
+        }
+    }
+
+    .order-item{
+        width: 100%;
+        margin: 10px 0px;
+        padding: 15px;
+        border: solid rgba(0, 0, 0, 0.37) 1.4px;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 160px;
+        display: flex;
+
+        h2{
+            font-size: 1.2rem;
+            color: rgb(112, 112, 112);
+            margin-bottom: 1px;
+        }
+
+        .title{
+            color: rgb(37, 34, 34);
+            font-size: 1.8rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .price{
+            width: 100%;
+            color: green;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        button{
+            margin: 5px;
+            margin-right: 10px;
+            margin-left: 0px;
+        }
+
+        img{
+            width: 140px;
+            object-fit: contain;
+        }
+
+        @media screen and (max-width:600px) {
+            &{
+                height: 130px;
+                padding: 10px;
+
+
+                h2{
+                    font-size: 1.0rem;
+                }
+        
+                .title{
+                    font-size: 1.4rem;
+                }
+        
+                .price{
+                    font-size: 1.2rem;
+                }
+        
+                button{
+                    padding: 6px 12px;
+                    font-size: 1rem;
+                }
+        
+                img{
+                    width: 100px;
+                }       
+            }
+        }
+    }
+
+    @media screen and (max-width:600px) {
+
+        &{
+            padding: 10px;
+        }
+
+        ul{
+            align-items: center;
+        }
+
+        h1{
+            font-size: 1.5rem;
+        }
+
+        select{
+            padding: 6px 12px;
+        }
+    }
+}
