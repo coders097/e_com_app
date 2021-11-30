@@ -102,8 +102,7 @@ const ItemView = ({item,setContent,authState,items,setItems}:{
                 <h2 className="price">$ {item?.price}</h2>
                 <h2 className="price">Quantity : {item?.qty}</h2>
                 <div className="description">
-                    <p>- Soft & Cozy</p>
-                    <p>- Bitch Motherfucker</p>
+                    {item?.desc.split('<$>').map((itemname,i)=><p key={i}>- {itemname}</p>)}
                 </div>
             </>:
             <>

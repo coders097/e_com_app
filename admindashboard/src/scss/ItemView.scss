@@ -4,6 +4,13 @@
     gap: 15px;
     flex-direction: column;
 
+
+    textarea{
+        height: fit-content;
+        max-height: 250px;
+        overflow: auto;
+    }
+
     .pics{
         height: 250px;
         display: inline-flex;

@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 const app=express();
+import autoComplete from './utils/autoComplete';
 
 // Load Environment Variables
 dotenv.config({path:"config.env"});
@@ -22,17 +23,22 @@ import adminRoute from './routes/admin';
 app.use("/admin",adminRoute);
 
 
-// Test Route
-app.get("/",(req,res)=>{
-    res.send("BADOL Maji");
-})
+
+
+// Models
+import Product from './models/Product';
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URL!);
 const db=mongoose.connection;
 db.on('error',()=>console.log("connection error"));
-db.once('open',()=>{
+db.once('open',async ()=>{
     console.log("We are connected!");
+    let initialValuesForTrie:string="";
+    let products=await Product.find();
+    products.forEach(product=>initialValuesForTrie+=product.title+" ");
+    autoComplete.init(app,initialValuesForTrie);
+    autoComplete.addWordToTrie("zebra");
 });
 
 let PORT=process.env.PORT?parseInt(process.env.PORT):3001;
